@@ -1,14 +1,14 @@
+import { AuthUser } from 'interfaces/auth';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { WebRoutes } from 'routes/WebRoutes';
-import { User } from 'utils/api/types/User';
 
 /**
  * Checks if user has access to current path
  * otherwise, directs to /
  * @param user User
  */
-export function useCheckUserAuth(user: NullOrUndefined<User>) {
+export function useCheckUserAuth(user: NullOrUndefined<AuthUser>) {
   const noAccess = !user;
   const navigate = useNavigate();
 
