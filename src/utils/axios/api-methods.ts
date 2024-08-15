@@ -8,7 +8,7 @@ export const apiGetMethod = async <T>(
   config?: AxiosRequestConfig,
 ): Promise<T> => {
   const API_URL = URL + setAndGetCommonParams();
-  const response = await authAxios.get<any, AxiosResponse<T>>(API_URL, config);
+  const response = await authAxios.get<unknown, AxiosResponse<T>>(API_URL, config);
   if (!response.status)
     throw new ResponseError(`Failed on ${URL} request`, response);
 
@@ -19,7 +19,7 @@ export const apiPostMethod = async <Tresponse, TData>(
   URL: string,
   data: TData,
 ): Promise<Tresponse> => {
-  const response = await authAxios.post<any, AxiosResponse<Tresponse>>(
+  const response = await authAxios.post<unknown, AxiosResponse<Tresponse>>(
     URL,
     data,
   );
@@ -33,7 +33,7 @@ export const apiPutMethod = async <Tresponse, TData>(
   URL: string,
   data: TData,
 ): Promise<Tresponse> => {
-  const response = await authAxios.put<any, AxiosResponse<Tresponse>>(
+  const response = await authAxios.put<unknown, AxiosResponse<Tresponse>>(
     `${URL}`,
     data,
   );
@@ -47,7 +47,7 @@ export const apiPatchMethod = async <Tresponse, TData>(
   URL: string,
   data: TData,
 ): Promise<Tresponse> => {
-  const response = await authAxios.patch<any, AxiosResponse<Tresponse>>(
+  const response = await authAxios.patch<unknown, AxiosResponse<Tresponse>>(
     `${URL}`,
     data,
   );
@@ -60,7 +60,7 @@ export const apiPatchMethod = async <Tresponse, TData>(
 export const apiDeleteMethod = async <Tresponse>(
   URL: string,
 ): Promise<Tresponse> => {
-  const response = await authAxios.delete<any, AxiosResponse<Tresponse>>(
+  const response = await authAxios.delete<unknown, AxiosResponse<Tresponse>>(
     `${URL}`,
   );
   if (!response.status)

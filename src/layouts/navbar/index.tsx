@@ -5,7 +5,6 @@ import {
   HStack,
   VStack,
   Text,
-  type FlexProps,
   Image,
   Spacer,
   Button,
@@ -15,16 +14,11 @@ import { useSignOut } from "hooks/auth/useSignOut";
 import { AuthUser } from "interfaces/auth";
 import { useAuthUser } from "hooks/auth/useAuthUser";
 
-interface MobileProps extends FlexProps {
-  onOpen?: () => unknown;
-}
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Navbar = ({ onOpen, ...rest }: MobileProps): JSX.Element => {
+const Navbar = (): JSX.Element => {
   const signOut = useSignOut();
   const authUser: NullOrUndefined<AuthUser> = useAuthUser();
 
-  // const onProfileClick = () => {};
   const onSignOut = () => {
     signOut();
   };
