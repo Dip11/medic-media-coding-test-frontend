@@ -42,9 +42,7 @@ export const useSignIn = (): IUseSignIn => {
     // サインインが成功した場合の処理を定義します。
     onSuccess: (data) => {
       if (data) {
-        // ユーザー情報をクエリクライアントにキャッシュします。
-        queryClient.setQueryData([QUERY_KEY.auth_user], data);
-        // ユーザー情報をローカルストレージに保存します。
+        queryClient.setQueryData([QUERY_KEY.AUTH_USER], data);
         userLocalStorage.saveUser(data);
         // ユーザーをダッシュボードにリダイレクトします。
         navigate("/admin/dashboard");

@@ -23,13 +23,13 @@ export const useSignOut = (): IUseSignOut => {
     },
     {
       onSettled: () => {
-        queryClient.setQueryData([QUERY_KEY.auth_user], null);
+        queryClient.setQueryData([QUERY_KEY.AUTH_USER], null);
         userLocalStorage.removeUser();
         navigate('/login');
       },
       onError: (error) => {
         console.log(error);
-        queryClient.setQueryData([QUERY_KEY.auth_user], null);
+        queryClient.setQueryData([QUERY_KEY.AUTH_USER], null);
         userLocalStorage.removeUser();
       },
     },

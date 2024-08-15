@@ -1,3 +1,4 @@
 export const QUERY_KEY = {
-  auth_user: 'auth_user',
+  AUTH_USER: 'AUTH_USER',
+  TASKS: 'TASKS',
 };
