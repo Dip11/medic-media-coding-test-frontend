@@ -10,7 +10,7 @@ export const useAuthUser = (): NullOrUndefined<AuthUser> => {
   const navigate = useNavigate();
 
   const { data: user } = useQuery<NullOrUndefined<AuthUser>>(
-    [QUERY_KEY.auth_user],
+    [QUERY_KEY.AUTH_USER],
     async (): Promise<NullOrUndefined<AuthUser>> => await getAuthUser(user),
     {
       refetchOnMount: true,
