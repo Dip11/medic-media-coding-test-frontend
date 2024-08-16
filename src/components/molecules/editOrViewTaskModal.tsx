@@ -62,6 +62,7 @@ export const EditOrViewTaskModal = (props: IEditOrViewTask): BaseComponent => {
   useEffect(() => {
     if (mode == "create") {
       setTitle("タスクを作成");
+      setValue('dueDate', moment().format('YYYY-MM-DD'));
     } else if (mode == "edit") {
       setTitle("タスクの更新");
     } else {
