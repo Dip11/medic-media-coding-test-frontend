@@ -9,7 +9,7 @@ import * as userLocalStorage from "../../utils/user.localstore";
 import { type AxiosError } from "axios";
 import { type APIError } from "interfaces/error";
 import { signIn } from "api/auth";
-import { QUERY_KEY } from "constants/queryKeys";
+import { useQueryKey } from "hooks/useQueryKey";
 
 interface IUseSignIn {
   mutateFn: UseMutateFunction<
@@ -25,9 +25,18 @@ interface IUseSignIn {
   error: NullOrUndefined<APIError>;
 }
 
+/**
+ * `useSignIn` は、ユーザーのサインイン操作を処理するためのカスタムフックです。
+ * 
+ * このフックは、認証情報を送信してユーザーをサインインさせ、成功した場合には
+ * ユーザー情報をローカルストレージに保存し、ダッシュボードページにリダイレクトします。
+ * 
+ * @returns `IUseSignIn` オブジェクト - サインイン操作を管理するための関数と状態。
+ */
 export const useSignIn = (): IUseSignIn => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { authUser} = useQueryKey()
 
   const {
     mutate: signInMutation,
@@ -42,7 +51,7 @@ export const useSignIn = (): IUseSignIn => {
     // サインインが成功した場合の処理を定義します。
     onSuccess: (data) => {
       if (data) {
-        queryClient.setQueryData([QUERY_KEY.AUTH_USER], data);
+        queryClient.setQueryData([authUser], data);
         userLocalStorage.saveUser(data);
         // ユーザーをダッシュボードにリダイレクトします。
         navigate("/admin/dashboard");

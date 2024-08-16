@@ -21,6 +21,7 @@ interface IUseFetchData<T> {
 
 export const useFetchData = <T>(
   queryKey: string,
+  apiUrl: string,
   apiFunction: <T>() => Promise<T>,
 ): IUseFetchData<T> => {
   const {
@@ -31,7 +32,7 @@ export const useFetchData = <T>(
     isError,
     refetch,
   } = useQuery<ResponeData<T> | T, AxiosError>(
-    [queryKey],
+    [queryKey, apiUrl],
     async (): Promise<ResponeData<T> | T> => await apiFunction<T>(),
     {
       refetchOnMount: true,
