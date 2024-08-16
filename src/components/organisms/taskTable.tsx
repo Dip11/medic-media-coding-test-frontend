@@ -117,7 +117,7 @@ export const TaskTable = (): BaseComponent => {
       <Center>
         <Heading>タスクデータ</Heading>
       </Center>
-      <Stack>
+      <Stack marginBottom={10} marginTop={5}>
         <Box>
           <Button colorScheme="blue" onClick={handleAddTask}>
             タスクを追加
@@ -125,58 +125,65 @@ export const TaskTable = (): BaseComponent => {
         </Box>
       </Stack>
       {isLoading && <Progress size="xs" isIndeterminate />}
-      <TableContainer>
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>タイトル</Th>
-              <Th>詳細</Th>
-              <Th>
-                <ArrowDownIcon
-                  onClick={() => handleSort("dueDate", "ASC")}
-                  cursor={"pointer"}
-                />
-                期日
-                <ArrowUpIcon
-                  onClick={() => handleSort("dueDate", "DESC")}
-                  cursor={"pointer"}
-                />
-              </Th>
-              <Th>
-                <ArrowDownIcon
-                  onClick={() => handleSort("createdAt", "ASC")}
-                  cursor={"pointer"}
-                />
-                作成日時
-                <ArrowUpIcon
-                  onClick={() => handleSort("createdAt", "DESC")}
-                  cursor={"pointer"}
-                />
-              </Th>
-              <Th> 表示</Th>
-              <Th>更新</Th>
-              <Th>削除</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {apiData?.data?.map((task, i) => (
-              <Tr key={i}>
-                <Td>{task?.title}</Td>
-                <Td>{task?.detail}</Td>
-                <Td>{moment(task?.dueDate).format("YYYY-MM-DD")}</Td>
-                <Td>{moment(task?.createdAt).format("YYYY-MM-DD")}</Td>
-                <Td>
-                  <Button onClick={() => handleTask("view", task)}>表示</Button>
-                </Td>
-                <Td>
-                  <Button onClick={() => handleTask("edit", task)}>更新</Button>
-                </Td>
-                <Td>{task && <DeleteTaskButton task={task} />}</Td>
+      {apiData?.data && apiData?.data?.length>0 && (
+        <TableContainer>
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+                <Th>タイトル</Th>
+                <Th>詳細</Th>
+                <Th>
+                  <ArrowDownIcon
+                    onClick={() => handleSort("dueDate", "ASC")}
+                    cursor={"pointer"}
+                  />
+                  期日
+                  <ArrowUpIcon
+                    onClick={() => handleSort("dueDate", "DESC")}
+                    cursor={"pointer"}
+                  />
+                </Th>
+                <Th>
+                  <ArrowDownIcon
+                    onClick={() => handleSort("createdAt", "ASC")}
+                    cursor={"pointer"}
+                  />
+                  作成日時
+                  <ArrowUpIcon
+                    onClick={() => handleSort("createdAt", "DESC")}
+                    cursor={"pointer"}
+                  />
+                </Th>
+                <Th> 表示</Th>
+                <Th>更新</Th>
+                <Th>削除</Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+            </Thead>
+            <Tbody>
+              {apiData?.data?.map((task, i) => (
+                <Tr key={i}>
+                  <Td>{task?.title}</Td>
+                  <Td>{task?.detail}</Td>
+                  <Td>{moment(task?.dueDate).format("YYYY-MM-DD")}</Td>
+                  <Td>{moment(task?.createdAt).format("YYYY-MM-DD")}</Td>
+                  <Td>
+                    <Button onClick={() => handleTask("view", task)}>
+                      表示
+                    </Button>
+                  </Td>
+                  <Td>
+                    <Button onClick={() => handleTask("edit", task)}>
+                      更新
+                    </Button>
+                  </Td>
+                  <Td>{task && <DeleteTaskButton task={task} />}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
+
       <EditOrViewTaskModal
         isOpen={isOpen}
         mode={selectedMode}

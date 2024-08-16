@@ -8,4 +8,3 @@ interface IResponseData<T> {
 }
 
 export type ResponeData<T> = Nullable<IResponseData<T>>;
-export type SingleResponeData<T> = Nullable<T>;

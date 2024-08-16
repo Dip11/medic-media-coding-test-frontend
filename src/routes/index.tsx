@@ -5,6 +5,7 @@ import ErrorPage from 'pages/error-page';
 import { Dashboard } from 'pages/dashboard';
 import { WebRoutes } from './WebRoutes';
 import AuthGuard from './guards/authGuard';
+import { Register } from 'pages/register';
 
 const routes = [
   {
@@ -28,6 +29,10 @@ const routes = [
   {
     path: WebRoutes.login.path,
     element: <Login />,
+  },
+  {
+    path: WebRoutes.register.path,
+    element: <Register />,
   },
   {
     path: '*',
