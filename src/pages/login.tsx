@@ -10,6 +10,7 @@ import {
   Stack,
   Image,
   Text,
+  Center,
 } from "@chakra-ui/react";
 import logo from "assets/h_logo.svg";
 import { PasswordField } from "components/atoms/password-field";
@@ -126,6 +127,8 @@ export const Login = (): BaseComponent => {
             </Stack>
           </Box>
         </Form>
+        <Center onClick={() => navigate(`/register`)} cursor={'pointer'} color={'red'}>
+          新しいユーザーとして登録</Center>
       </Stack>
     </Container>
   );

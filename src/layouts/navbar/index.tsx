@@ -14,11 +14,22 @@ import { useSignOut } from "hooks/auth/useSignOut";
 import { AuthUser } from "interfaces/auth";
 import { useAuthUser } from "hooks/auth/useAuthUser";
 
-
+/**
+ * `Navbar` コンポーネントは、アプリケーションのトップに表示されるナビゲーションバーを提供します。
+ *
+ * ナビゲーションバーには、アプリケーションのロゴと、サインインしたユーザーの情報（アバターと名前）、
+ * およびサインアウトボタンが含まれています。
+ *
+ * @returns `JSX.Element` - ナビゲーションバーをレンダリングするコンポーネント。
+ */
 const Navbar = (): JSX.Element => {
-  const signOut = useSignOut();
-  const authUser: NullOrUndefined<AuthUser> = useAuthUser();
+  const signOut = useSignOut(); // サインアウト処理を実行するためのカスタムフックを取得します。
+  const authUser: NullOrUndefined<AuthUser> = useAuthUser(); // 現在サインインしているユーザー情報を取得します。
 
+  /**
+   * `onSignOut` 関数は、サインアウトボタンがクリックされたときに呼び出されます。
+   * サインアウト処理をトリガーします。
+   */
   const onSignOut = () => {
     signOut();
   };

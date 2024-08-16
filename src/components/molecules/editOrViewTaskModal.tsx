@@ -12,7 +12,7 @@ import {
 import { BaseComponent } from "interfaces/component";
 import { ITask } from "interfaces/task";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import moment from "moment";
 import { useSubmitTask } from "hooks/task/useSubmitTask";
 import { BaseModal } from "components/atoms/BaseModal";
@@ -49,7 +49,7 @@ type TaskFormInput = {
  */
 export const EditOrViewTaskModal = (props: IEditOrViewTask): BaseComponent => {
   const { isOpen, onClose, mode, task } = props;
-  const { register, getValues, setValue } = useForm<TaskFormInput>();
+  const { register, setValue, reset, handleSubmit } = useForm<TaskFormInput>();
   const { updateOrSave } = useSubmitTask(task);
   const [title, setTitle] = useState<string>("");
 
@@ -62,7 +62,7 @@ export const EditOrViewTaskModal = (props: IEditOrViewTask): BaseComponent => {
   useEffect(() => {
     if (mode == "create") {
       setTitle("タスクを作成");
-      setValue('dueDate', moment().format('YYYY-MM-DD'));
+      setValue("dueDate", moment().format("YYYY-MM-DD"));
     } else if (mode == "edit") {
       setTitle("タスクの更新");
     } else {
@@ -75,6 +75,7 @@ export const EditOrViewTaskModal = (props: IEditOrViewTask): BaseComponent => {
    * - `onClose` を呼び出してモーダルを閉じます。
    */
   const onModalClose = () => {
+    reset();
     onClose();
   };
 
@@ -84,19 +85,19 @@ export const EditOrViewTaskModal = (props: IEditOrViewTask): BaseComponent => {
    * - `updateOrSave.mutate` を呼び出してタスクデータをサーバーに送信します。
    * - 送信後、モーダルを閉じます。
    */
-  const handleFormSubmit = () => {
+  const onSubmit: SubmitHandler<TaskFormInput> = async (data) => {
     try {
       const newTaskData: ITask = {
         id: task?.id,
-        title: getValues().title,
-        detail: getValues().detail,
-        dueDate: getValues().dueDate,
+        title: data.title,
+        detail: data.detail,
+        dueDate: data.dueDate,
       };
       updateOrSave.mutate(newTaskData);
     } catch (error: any) {
       console.log(error);
     } finally {
-      onClose();
+      onModalClose();
     }
   };
 
@@ -105,8 +106,8 @@ export const EditOrViewTaskModal = (props: IEditOrViewTask): BaseComponent => {
    * - タスクの `title`、`detail`、および `dueDate` をフォームフィールドに設定します。
    */
   useEffect(() => {
-    setValue("title", task?.title || "");
-    setValue("detail", task?.detail || "");
+    setValue("title", task?.title ?? "");
+    setValue("detail", task?.detail ?? "");
     if (task?.dueDate) {
       setValue("dueDate", moment(task.dueDate).format("YYYY-MM-DD"));
     }
@@ -117,39 +118,42 @@ export const EditOrViewTaskModal = (props: IEditOrViewTask): BaseComponent => {
       <Flex justifyContent={"center"} direction={"column"}>
         <Heading>{title}</Heading>
         <Stack>
-          <FormControl marginTop={3}>
-            <FormLabel>タイトル</FormLabel>
-            <Input
-              isDisabled={mode === "view"}
-              type="text"
-              defaultValue={task?.title}
-              {...register("title", { required: true })}
-            />
-            <FormErrorMessage>タイトルは必須です。</FormErrorMessage>
-          </FormControl>
-          <FormControl marginTop={3}>
-            <FormLabel>タスクの詳細</FormLabel>
-            <Textarea
-              defaultValue={task?.detail}
-              isDisabled={mode === "view"}
-              placeholder="タスクの詳細を記入してください"
-              {...register("detail")}
-            />
-          </FormControl>
-          <FormControl marginTop={3}>
-            期日 :{" "}
-            <input
-              type="date"
-              disabled={mode === "view"}
-              placeholder="期日"
-              {...register("dueDate")}
-            />
-          </FormControl>
-          {mode !== "view" && (
-            <Button marginTop={5} onClick={handleFormSubmit}>
-              完了
-            </Button>
-          )}
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <FormControl marginTop={3}>
+              <FormLabel>タイトル</FormLabel>
+              <Input
+                isDisabled={mode === "view"}
+                type="text"
+                defaultValue={task?.title}
+                {...register("title", { required: true })}
+              />
+              <FormErrorMessage>タイトルは必須です。</FormErrorMessage>
+            </FormControl>
+            <FormControl marginTop={3}>
+              <FormLabel>タスクの詳細</FormLabel>
+              <Textarea
+                defaultValue={task?.detail}
+                isDisabled={mode === "view"}
+                placeholder="タスクの詳細を記入してください"
+                {...register("detail")}
+              />
+            </FormControl>
+            <FormControl marginTop={3} marginBottom={10}>
+              期日 :{" "}
+              <input
+                type="date"
+                disabled={mode === "view"}
+                defaultValue={moment().format("YYYY-MM-DD")}
+                placeholder="期日"
+                {...register("dueDate")}
+              />
+            </FormControl>
+            {mode !== "view" && (
+              <Button width={'100%'} colorScheme={'blue'} type="submit" marginTop={5}>
+                完了
+              </Button>
+            )}
+          </form>
         </Stack>
       </Flex>
     </BaseModal>
