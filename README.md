@@ -17,9 +17,10 @@
 - デプロイのためのGoogle Cloud SDK。
 
 ### リポジトリをクローン```bash
+```
 git clone https://github.com/Dip11/medic-media-coding-test-frontend.git
 cd medic-media-coding-test-frontend
-
+```
 ## 依存関係をインストール
 ```
 npm install
