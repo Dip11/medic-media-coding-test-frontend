@@ -20,7 +20,8 @@
 - デプロイ:** Google Cloud Run, Docker, GitHub Actions。
 
 ## セットアップ手順
-### 前提条件- Node.js および npm がインストールされていること。
+### 前提条件
+- Node.js および npm がインストールされていること。
 - デプロイのためのGoogle Cloud SDK。
 
 ### リポジトリをクローン
@@ -66,7 +67,7 @@ gcloud run deploy task-frontend \
 ```
 
 ## CI/CDセットアップ
-### CI/CDパイプラインはGitHub Actionsを使用して設定されています。ワークフローファイルは .github/workflows/google-cloudrun-docker.yml に配置されています。
+#### CI/CDパイプラインはGitHub Actionsを使用して設定されています。ワークフローファイルは .github/workflows/google-cloudrun-docker.yml に配置されています。
 
 ファイル内の次のセクションを更新してください:
 
