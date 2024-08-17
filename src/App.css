@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+
+.long{
+  white-space: normal;
+  max-width: 350px;
+  text-align: justify;
+}
