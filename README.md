@@ -67,17 +67,30 @@ gcloud run deploy task-frontend \
 ```
 
 ## CI/CDセットアップ
-#### CI/CDパイプラインはGitHub Actionsを使用して設定されています。ワークフローファイルは .github/workflows/google-cloudrun-docker.yml に配置されています。
 
-ファイル内の次のセクションを更新してください:
+CI/CDパイプラインはGitHub Actionsを使用して設定されています。ワークフローファイルは .github/workflows/google-cloudrun-docker.yml に配置されています。
 
+### Google Cloud 認証のためのリポジトリシークレット
+サービスアカウントの作成と権限設定
+1. GCPのIAMでサービスアカウントを作成します。
+2. 以下の権限を付与します:
+* Cloud Run:
+  - roles/run.admin
+  - roles/iam.serviceAccountUser
+* Artifact Registry:
+  - roles/artifactregistry.admin
+
+3. このサービスアカウントのキーを作成し、JSON形式でダウンロードします。
+4. このキーをGitHubリポジトリのシークレットとしてGCP_CREDENTIALSという名前で追加します。
+
+### ファイル内の次のセクションを更新してください:
 ```
 env:
-  PROJECT_ID:your-google-cloud-project-id# Google CloudプロジェクトIDを新
-  GAR_NAME:your-artifact-registry-name# Artifact Registry名を更新
-  GAR_LOCATION:asia-northeast1# Artifact Registryの場所を確認または更新
-  SERVICE:your-cloud-run-service-name# Cloud Runサービス名を更新
-  REGION:asia-northeast1# Cloud Runサービスのリージョンを確認または更新
+  PROJECT_ID: your-google-cloud-project-id # Google CloudプロジェクトIDを更新
+  GAR_NAME: your-artifact-registry-name # Artifact Registry名を更新
+  GAR_LOCATION: asia-northeast1 # Artifact Registryの場所を確認または更新
+  SERVICE: your-cloud-run-service-name # Cloud Runサービス名を更新
+  REGION: asia-northeast1 # Cloud Runサービスのリージョンを確認または更新
 ```
 
 ## 監視
