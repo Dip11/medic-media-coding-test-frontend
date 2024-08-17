@@ -7,8 +7,6 @@ import {
   Th,
   Td,
   Tbody,
-  Center,
-  Heading,
   Box,
   Button,
   useDisclosure,
@@ -113,10 +111,7 @@ export const TaskTable = (): BaseComponent => {
   };
 
   return (
-    <Stack marginTop={10}>
-      <Center>
-        <Heading>タスクデータ</Heading>
-      </Center>
+    <Stack>
       <Stack marginBottom={10} marginTop={5}>
         <Box>
           <Button colorScheme="blue" onClick={handleAddTask}>
@@ -125,7 +120,7 @@ export const TaskTable = (): BaseComponent => {
         </Box>
       </Stack>
       {isLoading && <Progress size="xs" isIndeterminate />}
-      {apiData?.data && apiData?.data?.length>0 && (
+      {apiData?.data && apiData?.data?.length > 0 && (
         <TableContainer>
           <Table variant="simple">
             <Thead>
@@ -162,8 +157,10 @@ export const TaskTable = (): BaseComponent => {
             <Tbody>
               {apiData?.data?.map((task, i) => (
                 <Tr key={i}>
-                  <Td>{task?.title}</Td>
-                  <Td>{task?.detail}</Td>
+                  <Td className="long">{task?.title}</Td>
+                  <Td >
+                    <Box className="long">{task?.detail}</Box>
+                  </Td>
                   <Td>{moment(task?.dueDate).format("YYYY-MM-DD")}</Td>
                   <Td>{moment(task?.createdAt).format("YYYY-MM-DD")}</Td>
                   <Td>

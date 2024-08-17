@@ -100,7 +100,7 @@ export const Login = (): BaseComponent => {
               </Stack>
               {error && (
                 <Stack>
-                  <Text fontSize="sm" color={"primary"} align={"center"}>
+                  <Text fontSize="sm" color={"red"} align={"center"}>
                     {error?.message}
                   </Text>
                 </Stack>
