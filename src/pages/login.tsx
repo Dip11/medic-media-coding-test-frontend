@@ -94,7 +94,7 @@ export const Login = (): BaseComponent => {
               <Stack spacing="5">
                 <FormControl>
                   <FormLabel htmlFor="email">メール</FormLabel>
-                  <Input id="email" name="email" type="email" />
+                  <Input id="email" name="email" type="email" required={true} />
                 </FormControl>
                 <PasswordField />
               </Stack>
@@ -127,8 +127,13 @@ export const Login = (): BaseComponent => {
             </Stack>
           </Box>
         </Form>
-        <Center onClick={() => navigate(`/register`)} cursor={'pointer'} color={'red'}>
-          新しいユーザーとして登録</Center>
+        <Center
+          onClick={() => navigate(`/register`)}
+          cursor={"pointer"}
+          color={"red"}
+        >
+          新しいユーザーとして登録
+        </Center>
       </Stack>
     </Container>
   );
